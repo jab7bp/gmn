@@ -5,6 +5,7 @@ import numpy as np
 import math
 import inspect
 import operator
+import getpass
 from root_tools import *
 
 
@@ -30,7 +31,10 @@ args = parser.parse_args()
 
 pi = np.pi
 
-rootFile_dir = "/Users/john/UVa/SBS/analysis/rootFiles/"
+if(getpass.getuser() == "a-onl")
+	rootFile_dir = "/adaqfs/home/a-onl/sbs/Rootfiles/"
+else:
+	rootFile_dir = "/Users/john/UVa/SBS/analysis/rootFiles/"
 prefix = "gmn_replayed_"
 postfix = "_stream0_seg0_0.root"
 
