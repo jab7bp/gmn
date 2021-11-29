@@ -22,13 +22,13 @@ def plot_W(runnum, rootFiles, save, name, qtrans):
 	#Run info to put in plot
 	run_info = TPaveText(0.55,0.75,0.89,0.89,"NDC")
 	#run_info.AddText("Momentum transfer, Q^{2} = " + str(np.round(q_squared, 3)) + " (GeV/c)^{2}")
-	run_info.AddText("Target: LH2")
+	run_info.AddText("Target: " + TargetFromRun(int(runnum[0])))
 	run_info.AddText("Required hits on track: 3+ ")
-	run_info.AddText("Shower & Pre-shower cuts: 0.6 < E/p < 0.8")
+	run_info.AddText("Shower & Pre-shower cuts: " + str(CutFromRun(int(runnum[0]))[0]) + " < E/p < " + str(CutFromRun(int(runnum[0]))[1]))
 	run_info.SetTextSize(.025)
 	run_info.SetFillColor(0)
 
-	lineColor = 2	
+	lineColor = 1	
 
 	if(len(runnum) == 1):
 		stack_title = "BigBite Elastic Peak"
