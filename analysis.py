@@ -31,7 +31,7 @@ args = parser.parse_args()
 
 pi = np.pi
 
-if(getpass.getuser() == "a-onl")
+if(getpass.getuser() == "a-onl"):
 	rootFile_dir = "/adaqfs/home/a-onl/sbs/Rootfiles/"
 else:
 	rootFile_dir = "/Users/john/UVa/SBS/analysis/rootFiles/"
