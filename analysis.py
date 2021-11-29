@@ -26,6 +26,7 @@ parser.add_argument('-n', '--name', default = None, help = "specify name of file
 parser.add_argument('-q', '--qtrans', default = False, action = "store_true", help = "Choose whether or not to calculate momentum transfer q-squared", required = False)
 parser.add_argument('-w', '--inv_mass', default = False, action = "store_true", help = "Choose whether or not to calculate invariant mass, W" , required = False)
 parser.add_argument('-calib', '--calib', default = False, action = "store_true", help = "Choose to make calibration plot to select cut energies for shower and pre-shower", required = False)
+parser.add_argument('-seg', '--seg', default = "0", action = "store", type = str, help = "Specify the file segment or post-name for the root file", required = False)
 #parser.add_argument('-current', '--current', nargs = '*', default = [0.0], action = "store", type = float, required = False)
 
 args = parser.parse_args()
@@ -35,6 +36,7 @@ name = args.name
 qtrans = args.qtrans
 inv_mass = args.inv_mass
 calib = args.calib
+seg = args.seg
 
 if(calib):
 	inv_mass == False
@@ -45,7 +47,7 @@ if(getpass.getuser() == "a-onl"):
 else:
 	rootFile_dir = "/Users/john/UVa/SBS/analysis/rootFiles/"
 prefix = "gmn_replayed_"
-postfix = "_stream0_seg0_0.root"
+postfix = "_stream0_seg0_" + seg + ".root"
 
 rootFiles = []
 TFiles = []
