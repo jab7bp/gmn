@@ -1,15 +1,20 @@
 beam_variables = dict()
 #kin_var --> {Energy: {Current: [Run Numbers]}}
-beam_variables = {1.92 : {1.0 : 11207, 2.0 : 11214,3.0 : 11218, 4.0 : 11226, 5.0 : 11228, 6.0: ''}, 
-	  		5.56 : {1.0 : '', 2.0 : '',3.0 : '', 4.0 : '', 5.0 : '', 6.0: ''},
-			3.70 : {1.0 : 11420, 2.0 : 11421,3.0 : 11422, 4.0 : 11423, 5.0 : 11424, 6.0: 11425},
-			7.0 : {6.0: 99999},
+beam_variables = {1.92 : {1.0 : [11207,11420], 2.0 : [11214, 11421] ,3.0 : [11218, 11422], 4.0 : [11226, 11423], 5.0 : [11228, 11425], 6.0: ''}, 
+			3.7 : {1.75: [11594, 11595], 3.75: [11600], 7.0: [11605], 10.0: [11608]},
+			7.906: {1.0: [11989], 2.0: [11990], 4.0: [11991], 5.0: [12047, 12057], 8.0: [11993], 10.0: [12049, 12052, 12058]},
+
+			7.0 : {6.0: [99999]},
 			}
 
 ##Dictionary to specify targets for specific run energies
 targets = dict()
-targets = {	"LH2": [1.92, 3.70, 5.6],
-			"Targ": [7.0],
+# targets = {	"LH2": [1.92, 3.70, 5.6],
+# 			"Targ": [7.0],
+# 			}
+
+targets = {"LH2": [11207, 11214, 11218, 11226, 11228, 11420, 11421, 11422, 11423, 11425, 11432, 11989, 11990, 11991, 11993, 12052, 12367, 12340],
+			"LD2": [11594, 11595, 11600, 11605, 11608, 12047, 12049, 12057, 12058, 12316, 12342],
 			}
 
 ##Dictionary to speficy the Invariant Mass min and max histogram bin values for each run energy
@@ -42,8 +47,10 @@ elastic_peak = {1.92: [0.96, 1.1],
 
 def BeamEnergyFromRun(run):
 	for energy, current in beam_variables.items():
-		if (run in current.values()):
-			return energy
+		for runs in current.values():
+			for vals in runs:
+				if(vals == run):
+					return energy
 
 def CurrentFromRun(run):
 	for energy, current, in beam_variables.items():
@@ -51,10 +58,17 @@ def CurrentFromRun(run):
 			current_index = list(current.values()).index(run)
 			return list(current.keys())[current_index]
 
+# def TargetFromRun(run):
+# 	for target, energy in targets.items():
+# 		if (BeamEnergyFromRun(run) in energy):
+# 			return target
+
 def TargetFromRun(run):
-	for target, energy in targets.items():
-		if (BeamEnergyFromRun(run) in energy):
-			return target
+	for targ, runs in targets.items():
+		for vals in runs:
+			if(vals == run):
+				return targ
+	
 
 def WBinFromRun(run):
 	E = BeamEnergyFromRun(run)
@@ -82,4 +96,5 @@ def PeakMinMaxFromRun(run):
 		peak_index = list(elastic_peak.keys()).index(E)
 		return list(elastic_peak.values())[peak_index]
 
-print(PeakMinMaxFromRun(11207))
+
+

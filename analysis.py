@@ -16,6 +16,7 @@ from ROOT import *
 from beam_variables import *
 from W import *
 from Q2 import *
+from calib import *
 
 parser = argparse.ArgumentParser(description = 'HV current plots')
 parser.add_argument('-runnum', '--runnum', nargs= '*', help = "Enter run numbers", type = str, required =False)
@@ -24,12 +25,20 @@ parser.add_argument('-s', '--save', default = False, action = "store_true", help
 parser.add_argument('-n', '--name', default = None, help = "specify name of file", action = "store", type = str, required = False)
 parser.add_argument('-q', '--qtrans', default = False, action = "store_true", help = "Choose whether or not to calculate momentum transfer q-squared", required = False)
 parser.add_argument('-w', '--inv_mass', default = False, action = "store_true", help = "Choose whether or not to calculate invariant mass, W" , required = False)
-
+parser.add_argument('-calib', '--calib', default = False, action = "store_true", help = "Choose to make calibration plot to select cut energies for shower and pre-shower", required = False)
 #parser.add_argument('-current', '--current', nargs = '*', default = [0.0], action = "store", type = float, required = False)
 
 args = parser.parse_args()
+runnum = args.runnum
+save = args.save
+name = args.name
+qtrans = args.qtrans
+inv_mass = args.inv_mass
+calib = args.calib
 
-pi = np.pi
+if(calib):
+	inv_mass == False
+	qtrans == False
 
 if(getpass.getuser() == "a-onl"):
 	rootFile_dir = "/adaqfs/home/a-onl/sbs/Rootfiles/"
@@ -41,11 +50,6 @@ postfix = "_stream0_seg0_0.root"
 rootFiles = []
 TFiles = []
 
-runnum = args.runnum
-save = args.save
-name = args.name
-qtrans = args.qtrans
-inv_mass = args.inv_mass
 
 for run in runnum:
 	rootFiles.append(rootFile_dir + prefix + run + postfix)
@@ -56,6 +60,9 @@ if(inv_mass):
 
 if(qtrans):
 	plot_Q2(runnum, rootFiles, save)
+
+if(calib):
+	plot_Ep(runnum, rootFiles)
 
 
 input("Enter a key to stop.")
