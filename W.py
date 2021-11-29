@@ -11,8 +11,8 @@ def plot_W(runnum, rootFiles, save, name, qtrans):
 
 	##DEFINE BOUNDS ON THE ELASTIC PEAK##
 	bins = 200
-	el_peak_min_x = 0.96
-	el_peak_max_x = 1.1
+	# el_peak_min_x = 0.96
+	# el_peak_max_x = 1.1
 
 	#Canvas and Information to put on plot
 	legend = TLegend(0.1, 0.6, 0.38, 0.9)
@@ -50,6 +50,9 @@ def plot_W(runnum, rootFiles, save, name, qtrans):
 		cut_max = CutFromRun(int(run))[1]
 
 		E = BeamEnergyFromRun(int(run))
+
+		el_peak_min_x = PeakMinMaxFromRun(int(run))[0]
+		el_peak_max_x = PeakMinMaxFromRun(int(run))[1]
 
 		#rootFile = "/Users/john/UVa/SBS/analysis/rootFiles/gmn_replayed_" + run + "_stream0_seg0_0.root"
 		#rootFile = "/Users/john/UVa/SBS/inv_mass/replayed_11-21-21/bbgem_replayed_" + runnum + "_stream0_seg0_3.root"

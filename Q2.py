@@ -57,7 +57,7 @@ def plot_Q2(runnum, rootFiles, save):
 		##Store calculated variables in arrays##
 		hQ2.append(hist_Q2)
 		hQ2_stack.Add(hist_Q2)
-		print hist_Q2.GetMean(1)
+		#print(hist_Q2.GetMean(1))
 
 	
 	hQ2_stack.Draw("nostack")
