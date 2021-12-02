@@ -16,6 +16,15 @@ def plot_Ep(runnum, rootFiles):
 
 	lineColor = 1
 
+	#Run info to put in plot
+	run_info = TPaveText(0.55,0.75,0.89,0.89,"NDC")
+	#run_info.AddText("Momentum transfer, Q^{2} = " + str(np.round(q_squared, 3)) + " (GeV/c)^{2}")
+	run_info.AddText("Target: " + TargetFromRun(int(runnum[0])))
+	run_info.AddText("Energy: " + BeamEnergyFromRun(int(runnum[0])))
+	run_info.SetTextSize(.025)
+	run_info.SetFillColor(0)
+
+
 	for run in runnum:
 
 		index = runnum.index(run)

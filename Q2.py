@@ -32,6 +32,9 @@ def plot_Q2(runnum, rootFiles, save):
 
 	lineColor = 1	
 	
+###############################################################################################
+###******* WHERE THE WORK IS DONE -------- CALCULATING Q-Squared Momentum Transfer**********###
+###############################################################################################
 
 	for run in runnum:
 		E = BeamEnergyFromRun(int(run))

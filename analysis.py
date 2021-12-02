@@ -44,27 +44,33 @@ if(calib):
 
 if(getpass.getuser() == "a-onl"):
 	rootFile_dir = "/adaqfs/home/a-onl/sbs/Rootfiles/"
+	plot_dir = "/adaqfs/home/a-onl/jboyd/analysis/gmn/plots"
 else:
 	rootFile_dir = "/Users/john/UVa/SBS/analysis/rootFiles/"
+	plot_dir = "/Users/john/UVa/SBS/analysis/plots/"
 prefix = "gmn_replayed_"
 postfix = "_stream0_seg0_" + seg + ".root"
 
+
+
 rootFiles = []
 TFiles = []
+nEntries = []
 
 
 for run in runnum:
 	rootFiles.append(rootFile_dir + prefix + run + postfix)
 	TFiles.append(TFile(rootFiles[runnum.index(run)]))
+	nEntries.append(TFiles[runnum.index(run)].Get("T").GetEntries())
+
 
 if(inv_mass):
-	plot_W(runnum, rootFiles, save, name, qtrans)
+	plot_W(runnum, rootFiles, save, name, qtrans, nEntries)
 
 if(qtrans):
 	plot_Q2(runnum, rootFiles, save)
 
 if(calib):
 	plot_Ep(runnum, rootFiles)
-
 
 input("Enter a key to stop.")

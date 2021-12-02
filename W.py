@@ -3,10 +3,10 @@ from beam_variables import *
 import numpy as np
 
 
-def plot_W(runnum, rootFiles, save, name, qtrans):
+def plot_W(runnum, rootFiles, save, name, qtrans, nEntries):
 	global W, Mp, hW, hist_W, hW_max, num_events, energies, hW_stack, stack_can
 
-	W, hW, hW_max, num_events = [], [], [], []
+	W, hW, hW_max, num_events= [], [], [], []
 	Mp = 0.938
 
 	##DEFINE BOUNDS ON THE ELASTIC PEAK##
@@ -23,6 +23,7 @@ def plot_W(runnum, rootFiles, save, name, qtrans):
 	run_info = TPaveText(0.55,0.75,0.89,0.89,"NDC")
 	#run_info.AddText("Momentum transfer, Q^{2} = " + str(np.round(q_squared, 3)) + " (GeV/c)^{2}")
 	run_info.AddText("Target: " + TargetFromRun(int(runnum[0])))
+	run_info.AddText("N Entries: " + str(nEntries[0]))
 	run_info.AddText("Required hits on track: 3+ ")
 	run_info.AddText("Shower & Pre-shower cuts: " + str(CutFromRun(int(runnum[0]))[0]) + " < E/p < " + str(CutFromRun(int(runnum[0]))[1]))
 	run_info.SetTextSize(.025)
@@ -39,8 +40,11 @@ def plot_W(runnum, rootFiles, save, name, qtrans):
 	hW_stack = THStack("hW_stack", stack_title)
 
 
-	
+#####################################################################################
 ###******* WHERE THE WORK IS DONE -------- CALCULATING INVARIANT MASS W **********###
+#####################################################################################
+
+
 	for run in runnum:
 		index = runnum.index(run)
 		min_bin = WBinFromRun(int(run))[0]
@@ -60,6 +64,7 @@ def plot_W(runnum, rootFiles, save, name, qtrans):
 
 		tCh = TChain("T")
 		tCh.Add(rootFiles[index])
+
 
 		hist_W = TH1F('hist_W_' + run , 'Invariant Mass (Elastic/Inelastic Peaks)', bins, min_bin, max_bin)
 		

@@ -52,10 +52,11 @@ def BeamEnergyFromRun(run):
 					return energy
 
 def CurrentFromRun(run):
-	for energy, current, in beam_variables.items():
-		if (run in current.values()):
-			current_index = list(current.values()).index(run)
-			return list(current.keys())[current_index]
+	for energy, current in beam_variables.items():
+		for beam_current, runs in current.items():
+			for this_run in runs:
+				if(this_run == run):
+					return beam_current
 
 # def TargetFromRun(run):
 # 	for target, energy in targets.items():
@@ -94,5 +95,4 @@ def PeakMinMaxFromRun(run):
 	if (E in elastic_peak.keys()):
 		peak_index = list(elastic_peak.keys()).index(E)
 		return list(elastic_peak.values())[peak_index]
-
 
